@@ -1,19 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="CooksBook"
+        android:textSize="40sp"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif-medium"
+        android:padding="10dp"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ListView
+        android:id="@+id/recipeListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="Dodaj komentarz"
+        android:layout_gravity="center"
+        android:id="@+id/commentEdittext"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        />
+
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="2"
+        android:stepSize="1"
+        android:rating="0"
+        android:isIndicator="false"
+        android:layout_gravity="center"
+        android:scaleX="0.5"
+        android:layout_marginTop="10dp"
+        android:scaleY="0.5"
+        />
+
+    <TextView
+        android:id="@+id/ratingValueTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:layout_marginTop="10dp"
+        android:text="Twoja ocena: 0"
+        android:layout_gravity="center"/>
+
+</LinearLayout>
