@@ -1,65 +1,60 @@
-package com.example.cookbook
+package com.example.cookbook.fragments
 
-import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.cookbook.adapters.RecipeAdapter
-import com.example.cookbook.fragments.RecipeDetailsFragment
-import org.json.JSONArray
+import android.widget.*
+import androidx.fragment.app.Fragment
+import com.example.cookbook.R
+import com.example.cookbook.Recipe
 
 class RecipeListFragment : Fragment() {
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var recipeList: MutableList<Recipe>
-    private lateinit var adapter: RecipeAdapter
+
+    private val recipeList = mutableListOf<Recipe>()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_recepie_list, container, false)
+        return inflater.inflate(R.layout.fragment_recipe_list, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedPreferences = requireContext().getSharedPreferences("RecipesPref", Context.MODE_PRIVATE)
-        recipeList = loadRecipes()
+        val listView: ListView = view.findViewById(R.id.listView)
+        val addButton: Button = view.findViewById(R.id.addButton)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = RecipeAdapter(recipeList) { recipe ->
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, recipeList.map { it.title })
+        listView.adapter = adapter
+
+        listView.setOnItemClickListener { _, _, position, _ ->
+            val recipe = recipeList[position]
+            showRecipeDetails(recipe)
+        }
+
+        addButton.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, RecipeDetailsFragment.newInstance(recipe))
+                .replace(R.id.fragmentContainer, AddRecipeFragment(recipeList, adapter))
                 .addToBackStack(null)
                 .commit()
         }
-        recyclerView.adapter = adapter
     }
 
-    private fun loadRecipes(): MutableList<Recipe> {
-        val jsonStr = sharedPreferences.getString("recipes", "[]")
-        val jsonArr = JSONArray(jsonStr)
-        val recipes = mutableListOf<Recipe>()
+    private fun showRecipeDetails(recipe: Recipe) {
+        val fragment = RecipeDetailsFragment()
+        val bundle = Bundle()
+        bundle.putString("title", recipe.title)
+        bundle.putString("ingredients", recipe.ingredients)
+        bundle.putString("instructions", recipe.instructions)
+        bundle.putFloat("rating", recipe.rating)
+        fragment.arguments = bundle
 
-        for (i in 0 until jsonArr.length()) {
-            val jsonObj = jsonArr.getJSONObject(i)
-            recipes.add(
-                Recipe(
-                    jsonObj.getInt("id"),
-                    jsonObj.getString("title"),
-                    jsonObj.getString("ingredients"),
-                    jsonObj.getString("description"),
-                    jsonObj.getDouble("rating").toFloat()
-                )
-            )
-        }
-
-        return recipes
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

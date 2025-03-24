@@ -1,47 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddRecepieFragment"
     android:orientation="vertical"
-    >
+    android:padding="16dp">
 
     <EditText
-        android:id="@+id/editTitle"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:hint="Nazwa przpisu"
+        android:id="@+id/titleEditText"
+        android:hint="Nazwa przepisu"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center"
         />
-
     <EditText
-        android:id="@+id/editIngredients"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/ingredientsEditText"
         android:hint="Składniki"
-        />
-
-    <EditText
-        android:id="@+id/editInstructions"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:hint="Instrukce"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center"
         />
-
+    <EditText
+        android:id="@+id/instructionsEditText"
+        android:hint="Instrukcje"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        />
     <RatingBar
+        android:id="@+id/recipeRatingBar"
+        android:numStars="5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:numStars="5"
-        android:stepSize="0.5"
-        android:id="@+id/ratingBar"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
         />
-
     <Button
-        android:id="@+id/btnSaveRecipe"
-        android:layout_width="match_parent"
+        android:id="@+id/saveButton"
+        android:text="Zapisz"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dodaj"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
         />
 
 </LinearLayout>
