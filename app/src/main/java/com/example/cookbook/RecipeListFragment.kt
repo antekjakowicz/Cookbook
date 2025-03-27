@@ -37,7 +37,7 @@ class RecipeListFragment : Fragment() {
 
         addButton.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, AddRecipeFragment(recipeList, adapter))
+                .replace(R.id.activity_main, AddRecipeFragment(recipeList, adapter))
                 .addToBackStack(null)
                 .commit()
         }
@@ -53,7 +53,7 @@ class RecipeListFragment : Fragment() {
         fragment.arguments = bundle
 
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
+            .replace(R.id.activity_main, fragment)
             .addToBackStack(null)
             .commit()
     }

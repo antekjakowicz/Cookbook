@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, RecipeListFragment())
+                .replace(R.id.activity_main, RecipeListFragment())
                 .commit()
         }
     }
